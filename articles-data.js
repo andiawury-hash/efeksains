@@ -4,19 +4,19 @@
 
 const ARTICLES = [
   {
-    "id": 2,
-    "slug": "banjir-dan-penyakit",
-    "title": "Banjir dan Penyakit: Apa Hubungannya?",
+    "id": 1,
+    "slug": "cuaca-panas-gampang-capek",
+    "title": "Kenapa Cuaca Makin Panas Bikin Kita Gampang Capek?",
     "category": "kesehatan",
-    "excerpt": "Banjir bukan cuma soal rumah kerendem. Air yang menggenang lama itu jadi jalan masuk buat berbagai penyakit menular.",
-    "readTime": "5 menit",
-    "date": "28 Jun 2026",
+    "excerpt": "Suhu yang naik bukan cuma soal AC nyala lebih lama. Tubuh kita kerja ekstra keras buat tetap dingin, dan itu ada efeknya.",
+    "readTime": "4 menit",
+    "date": "2 Jul 2026",
     "author": "Shofiya",
     "content": [
-      "Waktu air banjir menggenang, ia sering bercampur sama air got, limbah, dan kotoran hewan. Kontak langsung sama air ini bisa jadi jalur masuk bakteri leptospira, penyebab penyakit leptospirosis yang gejalanya mirip flu tapi bisa berkembang jadi serius kalau nggak ditangani cepat.",
-      "Genangan air yang nggak segera surut juga jadi tempat ideal buat nyamuk berkembang biak, yang artinya risiko demam berdarah dan malaria ikut naik beberapa minggu setelah banjir surut.",
-      "Perubahan iklim bikin pola hujan makin ekstrem, hujan yang harusnya turun merata dalam sebulan, sekarang sering turun sekaligus dalam hitungan hari, memicu banjir yang lebih sering dan lebih parah di banyak kota.",
-      "Langkah simpel yang bisa membantu: hindari kontak langsung sama air banjir kalau ada luka terbuka, pastikan air minum sudah dimasak/steril, dan segera periksa ke fasilitas kesehatan kalau muncul demam setelah kontak dengan air banjir."
+      "Waktu suhu udara naik, tubuh otomatis kerja lebih keras buat jaga suhu inti tetap stabil di sekitar 37°C. Salah satu caranya lewat berkeringat, dan proses ini butuh energi tambahan yang bikin kita gampang capek meski cuma duduk diam.",
+      "Selain itu, tubuh juga ngalirin lebih banyak darah ke permukaan kulit buat buang panas, artinya lebih sedikit darah (dan oksigen) yang sampai ke otot dan otak dalam jumlah optimal. Efeknya bisa berupa pusing ringan, sulit konsentrasi, atau rasa lelah yang nggak biasa.",
+      "Remaja yang aktif secara fisik (misalnya abis olahraga atau jalan jauh di siang bolong) lebih rentan ngalamin ini, apalagi kalau kurang minum air. Dehidrasi ringan aja udah cukup bikin efek capeknya kerasa lebih parah.",
+      "Kabar baiknya, ini bisa diantisipasi: minum air lebih sering (jangan nunggu haus), hindari aktivitas berat pas jam terpanas (biasanya 11.00-15.00), dan kasih tubuh waktu istirahat di tempat teduh. Perubahan iklim bikin hari-hari panas ekstrem makin sering terjadi, jadi kebiasaan kecil ini makin penting dari sebelumnya."
     ]
   },
   {

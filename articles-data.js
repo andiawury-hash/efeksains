@@ -20,22 +20,6 @@ const ARTICLES = [
     ]
   },
   {
-    "id": 4,
-    "slug": "polusi-udara-musuh-diam",
-    "title": "Polusi Udara: Musuh Diam-Diam Paru-Paru Kita",
-    "category": "kesehatan",
-    "excerpt": "Nggak keliatan, tapi efeknya nyata. Ini yang terjadi ke tubuh kita setiap hari menghirup udara kota besar.",
-    "readTime": "5 menit",
-    "date": "19 Jun 2026",
-    "author": "Shofiya",
-    "content": [
-      "Partikel polusi udara yang paling berbahaya disebut PM2.5, ukurannya begitu kecil (2.5 mikrometer atau lebih kecil) sehingga bisa masuk jauh ke dalam paru-paru, bahkan menembus ke aliran darah.",
-      "Paparan jangka panjang terhadap PM2.5 dikaitkan dengan berbagai masalah kesehatan, mulai dari asma, penurunan fungsi paru-paru, hingga risiko penyakit jantung yang meningkat di kemudian hari.",
-      "Sumber polusi udara ini sebagian besar berasal dari pembakaran bahan bakar fosil, kendaraan bermotor, dan industri, aktivitas yang juga jadi penyumbang utama emisi gas rumah kaca penyebab perubahan iklim.",
-      "Artinya, upaya menekan polusi udara dan mengatasi perubahan iklim itu jalan bareng. Mengurangi kendaraan berbahan bakar fosil dan beralih ke transportasi lebih bersih itu baik buat udara yang kita hirup hari ini, sekaligus buat iklim jangka panjang."
-    ]
-  },
-  {
     "id": 5,
     "slug": "riset-suhu-kesehatan-mental-remaja",
     "title": "Riset Terbaru: Suhu Bumi dan Kesehatan Mental Remaja",

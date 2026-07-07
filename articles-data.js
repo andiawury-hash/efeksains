@@ -4,22 +4,6 @@
 
 const ARTICLES = [
   {
-    "id": 1,
-    "slug": "cuaca-panas-gampang-capek",
-    "title": "Kenapa Cuaca Makin Panas Bikin Kita Gampang Capek?",
-    "category": "kesehatan",
-    "excerpt": "Suhu yang naik bukan cuma soal AC nyala lebih lama. Tubuh kita kerja ekstra keras buat tetap dingin, dan itu ada efeknya.",
-    "readTime": "4 menit",
-    "date": "2 Jul 2026",
-    "author": "Shofiya",
-    "content": [
-      "Waktu suhu udara naik, tubuh otomatis kerja lebih keras buat jaga suhu inti tetap stabil di sekitar 37°C. Salah satu caranya lewat berkeringat, dan proses ini butuh energi tambahan yang bikin kita gampang capek meski cuma duduk diam.",
-      "Selain itu, tubuh juga ngalirin lebih banyak darah ke permukaan kulit buat buang panas, artinya lebih sedikit darah (dan oksigen) yang sampai ke otot dan otak dalam jumlah optimal. Efeknya bisa berupa pusing ringan, sulit konsentrasi, atau rasa lelah yang nggak biasa.",
-      "Remaja yang aktif secara fisik (misalnya abis olahraga atau jalan jauh di siang bolong) lebih rentan ngalamin ini, apalagi kalau kurang minum air. Dehidrasi ringan aja udah cukup bikin efek capeknya kerasa lebih parah.",
-      "Kabar baiknya, ini bisa diantisipasi: minum air lebih sering (jangan nunggu haus), hindari aktivitas berat pas jam terpanas (biasanya 11.00-15.00), dan kasih tubuh waktu istirahat di tempat teduh. Perubahan iklim bikin hari-hari panas ekstrem makin sering terjadi, jadi kebiasaan kecil ini makin penting dari sebelumnya."
-    ]
-  },
-  {
     "id": 3,
     "slug": "apa-itu-gelombang-panas",
     "title": "Apa Itu Gelombang Panas, dan Kenapa Berbahaya?",

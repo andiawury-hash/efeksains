@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Efeksains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral: #E3735E;
+  --teal: #088F8F;
+  --ink: #0D2B2B;
+  --ink-soft: #0D2B2B99;
+  --ink-faint: #0D2B2B55;
+  --paper: #F2F8F7;
+  --paper-raised: #FFFFFF;
+  --signal: #F2B705;
+  --line: #0D2B2B18;
+  --danger: #C0392B;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; line-height: 1.6; }
+.display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+.mono { font-family: 'IBM Plex Mono', monospace; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
+
+.nav { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; }
+.nav-mark { width: 28px; height: 28px; border-radius: 999px; background: var(--teal); position: relative; flex-shrink: 0; }
+.nav-mark::after { content: ""; position: absolute; inset: 6px; background: var(--coral); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); border-radius: 3px; }
+.nav-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; }
+.nav-badge { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-faint); border: 1px solid var(--line); padding: 3px 8px; border-radius: 999px; margin-left: auto; }
+
+h1.page-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; margin-bottom: 8px; }
+p.page-sub { color: var(--ink-soft); margin-bottom: 30px; font-size: 14.5px; }
+
+.card { background: var(--paper-raised); border: 1px solid var(--line); border-radius: 14px; padding: 26px; margin-bottom: 20px; }
+
+label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); margin-bottom: 6px; margin-top: 18px; }
+label:first-child { margin-top: 0; }
+input[type="text"], input[type="password"], input[type="date"], select, textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14.5px;
+  color: var(--ink);
+  background: var(--paper);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--teal); }
+textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+.hint { font-size: 12.5px; color: var(--ink-faint); margin-top: 6px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 22px; border-radius: 9px; font-weight: 600; font-size: 14.5px;
+  border: none; cursor: pointer; transition: transform 0.12s ease, opacity 0.12s ease;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn-danger { background: var(--danger); color: #fff; padding: 8px 14px; font-size: 13px; }
+.btn-block { width: 100%; margin-top: 22px; }
+
+.checkbox-row { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.checkbox-row label { margin: 0; font-family: 'IBM Plex Sans', sans-serif; text-transform: none; letter-spacing: 0; font-size: 13.5px; color: var(--ink-soft); }
+.checkbox-row input { width: auto; }
+
+.status { padding: 12px 16px; border-radius: 8px; font-size: 13.5px; margin-top: 16px; font-family: 'IBM Plex Mono', monospace; }
+.status.info { background: var(--teal-dim, #088F8F1a); color: var(--teal); }
+.status.error { background: #C0392B1a; color: var(--danger); }
+.status.success { background: #2E7D5A1a; color: #2E7D5A; }
+
+.article-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.article-row:last-child { border-bottom: none; }
+.article-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; flex-shrink: 0; }
+.article-info { flex: 1; min-width: 0; }
+.article-info .t { font-weight: 600; font-size: 14.5px; margin-bottom: 2px; }
+.article-info .m { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-faint); }
+
+.hidden { display: none !important; }
+.loader { text-align: center; padding: 40px 0; color: var(--ink-faint); font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="nav">
+    <span class="nav-mark"></span>
+    <span class="nav-text display">Efeksains</span>
+    <span class="nav-badge mono">ADMIN</span>
+  </div>
+
+  <!-- GATE: token entry -->
+  <div id="gate">
+    <h1 class="page-title display">Masuk Admin</h1>
+    <p class="page-sub">Masukkan GitHub token buat akses panel tambah/hapus artikel.</p>
+    <div class="card">
+      <label>GitHub Personal Access Token</label>
+      <input type="password" id="tokenInput" placeholder="github_pat_...">
+      <div class="checkbox-row">
+        <input type="checkbox" id="rememberToken">
+        <label for="rememberToken">Ingat token di browser ini (cuma di device kamu, tapi tetap hati-hati)</label>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="handleLogin()">Masuk</button>
+      <div id="gateStatus"></div>
+    </div>
+  </div>
+
+  <!-- PANEL: main admin UI -->
+  <div id="panel" class="hidden">
+    <h1 class="page-title display">Kelola Artikel</h1>
+    <p class="page-sub">Tambah artikel baru atau hapus yang udah ada. Perubahan langsung ke-commit ke repo, situs update otomatis 1-2 menit.</p>
+
+    <div class="card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+        <label style="margin:0;">Artikel Saat Ini</label>
+        <button class="btn btn-ghost" style="padding:6px 12px; font-size:12.5px;" onclick="loadArticles()">↻ Refresh</button>
+      </div>
+      <div id="articleList"><div class="loader">Memuat artikel...</div></div>
+    </div>
+
+    <div class="card">
+      <label style="margin:0;">Tambah Artikel Baru</label>
+      <label>Judul</label>
+      <input type="text" id="f_title" placeholder="Judul artikel">
+
+      <label>Kategori</label>
+      <select id="f_category">
+        <option value="iklim">Iklim</option>
+        <option value="kesehatan">Kesehatan</option>
+        <option value="riset">Riset</option>
+      </select>
+
+      <label>Ringkasan (1-2 kalimat, muncul di card)</label>
+      <textarea id="f_excerpt" style="min-height:60px;" placeholder="Ringkasan singkat artikel..."></textarea>
+
+      <label>Isi Artikel</label>
+      <textarea id="f_content" style="min-height:200px;" placeholder="Tulis isi artikel di sini. Pisahkan tiap paragraf dengan baris kosong (enter 2x)."></textarea>
+      <div class="hint">Pisahkan paragraf dengan baris kosong. Estimasi waktu baca dihitung otomatis.</div>
+
+      <label>Penulis</label>
+      <input type="text" id="f_author" value="Shofiya">
+
+      <label>Tanggal</label>
+      <input type="date" id="f_date">
+
+      <button class="btn btn-primary btn-block" onclick="handlePublish()" id="publishBtn">Publish Artikel</button>
+      <div id="publishStatus"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const OWNER = "andiawury-hash";
+const REPO = "efeksains";
+const BRANCH = "main";
+const FILE_PATH = "articles-data.js";
+const CATEGORY_LABELS = { iklim: "Iklim", kesehatan: "Kesehatan", riset: "Riset" };
+const CATEGORY_COLORS = { iklim: "#088F8F", kesehatan: "#E3735E", riset: "#F2B705" };
+const MONTHS_ID = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+
+let token = "";
+let currentSha = "";
+let currentArticles = [];
+
+// ---------- Init ----------
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('f_date').value = new Date().toISOString().split('T')[0];
+  const saved = localStorage.getItem('efeksains_admin_token');
+  if (saved) {
+    document.getElementById('tokenInput').value = saved;
+    document.getElementById('rememberToken').checked = true;
+  }
+});
+
+// ---------- Base64 helpers (unicode-safe) ----------
+function b64Decode(str) {
+  return decodeURIComponent(atob(str.replace(/\n/g, '')).split('').map(c =>
+    '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+  ).join(''));
+}
+function b64Encode(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) =>
+    String.fromCharCode('0x' + p1)
+  ));
+}
+
+function showStatus(elId, type, msg) {
+  document.getElementById(elId).innerHTML = `<div class="status ${type}">${msg}</div>`;
+}
+function clearStatus(elId) {
+  document.getElementById(elId).innerHTML = '';
+}
+
+// ---------- GitHub API ----------
+async function fetchFile() {
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}&_=${Date.now()}`, {
+    cache: "no-store",
+    headers: {
+      "Authorization": `token ${token}`,
+      "Accept": "application/vnd.github+json"
+    }
+  });
+  if (!res.ok) {
+    if (res.status === 401) throw new Error("Token tidak valid atau udah expired.");
+    if (res.status === 404) throw new Error("Repo atau file gak ketemu. Cek nama repo/token permission.");
+    throw new Error(`Gagal ambil file (status ${res.status}).`);
+  }
+  const data = await res.json();
+  currentSha = data.sha;
+  return b64Decode(data.content);
+}
+
+function extractArticlesArray(fileText) {
+  const marker = "const ARTICLES = [";
+  const startIdx = fileText.indexOf(marker);
+  if (startIdx === -1) throw new Error("Format file gak dikenali (marker ARTICLES gak ketemu).");
+  const arrStart = startIdx + marker.length - 1;
+  let depth = 0, i = arrStart;
+  for (; i < fileText.length; i++) {
+    if (fileText[i] === '[') depth++;
+    if (fileText[i] === ']') { depth--; if (depth === 0) break; }
+  }
+  const arrEnd = i;
+  const arrayText = fileText.slice(arrStart, arrEnd + 1);
+  const articles = new Function('return ' + arrayText)();
+  return {
+    before: fileText.slice(0, arrStart),
+    after: fileText.slice(arrEnd + 1),
+    articles
+  };
+}
+
+async function commitArticles(newArticles, commitMessage, isRetry) {
+  const fileText = await fetchFile();
+  const { before, after } = extractArticlesArray(fileText);
+  const newArrayText = JSON.stringify(newArticles, null, 2);
+  const newFileText = before + newArrayText + after;
+
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`, {
+    method: "PUT",
+    headers: {
+      "Authorization": `token ${token}`,
+      "Accept": "application/vnd.github+json"
+    },
+    body: JSON.stringify({
+      message: commitMessage,
+      content: b64Encode(newFileText),
+      sha: currentSha,
+      branch: BRANCH
+    })
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    const msg = err.message || `Gagal commit (status ${res.status}).`;
+    // Kalau sha gak cocok (409) dan belum pernah retry, coba sekali lagi otomatis dengan sha terbaru
+    if (!isRetry && (res.status === 409 || /does not match/i.test(msg))) {
+      return commitArticles(newArticles, commitMessage, true);
+    }
+    throw new Error(msg);
+  }
+}
+
+// ---------- Login ----------
+async function handleLogin() {
+  const input = document.getElementById('tokenInput').value.trim();
+  if (!input) { showStatus('gateStatus', 'error', 'Token belum diisi.'); return; }
+  token = input;
+  clearStatus('gateStatus');
+  showStatus('gateStatus', 'info', 'Menghubungkan ke GitHub...');
+
+  try {
+    await fetchFile();
+    if (document.getElementById('rememberToken').checked) {
+      localStorage.setItem('efeksains_admin_token', token);
+    } else {
+      localStorage.removeItem('efeksains_admin_token');
+    }
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('panel').classList.remove('hidden');
+    loadArticles();
+  } catch (e) {
+    showStatus('gateStatus', 'error', e.message);
+  }
+}
+
+// ---------- List articles ----------
+async function loadArticles() {
+  document.getElementById('articleList').innerHTML = '<div class="loader">Memuat artikel...</div>';
+  try {
+    const fileText = await fetchFile();
+    const { articles } = extractArticlesArray(fileText);
+    currentArticles = articles;
+    renderArticleList();
+  } catch (e) {
+    document.getElementById('articleList').innerHTML = `<div class="status error">${e.message}</div>`;
+  }
+}
+
+function renderArticleList() {
+  const listEl = document.getElementById('articleList');
+  if (currentArticles.length === 0) {
+    listEl.innerHTML = '<div class="loader">Belum ada artikel.</div>';
+    return;
+  }
+  listEl.innerHTML = currentArticles.map(a => {
+    const color = CATEGORY_COLORS[a.category] || '#999';
+    const label = CATEGORY_LABELS[a.category] || a.category;
+    return `
+      <div class="article-row">
+        <span class="article-tag mono" style="background:${color}22; color:${color};">${label}</span>
+        <div class="article-info">
+          <div class="t">${escapeHtml(a.title)}</div>
+          <div class="m">${a.date} &middot; ${a.readTime}</div>
+        </div>
+        <button class="btn btn-danger" onclick="handleDelete(${a.id}, '${escapeHtml(a.title).replace(/'/g, "\\'")}')">Hapus</button>
+      </div>`;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ---------- Delete ----------
+async function handleDelete(id, title) {
+  if (!confirm(`Yakin mau hapus artikel "${title}"? Ini gak bisa dibatalin.`)) return;
+  try {
+    const newArticles = currentArticles.filter(a => a.id !== id);
+    await commitArticles(newArticles, `Hapus artikel: ${title}`);
+    currentArticles = newArticles;
+    renderArticleList();
+    showStatus('publishStatus', 'success', `Berhasil dihapus. Situs update dalam 1-2 menit.`);
+  } catch (e) {
+    showStatus('publishStatus', 'error', e.message);
+  }
+}
+
+// ---------- Add ----------
+function slugify(title) {
+  return title.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .slice(0, 60);
+}
+
+function formatDateID(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return `${d.getDate()} ${MONTHS_ID[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function estimateReadTime(paragraphs) {
+  const wordCount = paragraphs.join(' ').split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(wordCount / 200));
+  return `${minutes} menit`;
+}
+
+async function handlePublish() {
+  const title = document.getElementById('f_title').value.trim();
+  const category = document.getElementById('f_category').value;
+  const excerpt = document.getElementById('f_excerpt').value.trim();
+  const contentRaw = document.getElementById('f_content').value.trim();
+  const author = document.getElementById('f_author').value.trim() || 'Shofiya';
+  const dateVal = document.getElementById('f_date').value;
+
+  if (!title || !excerpt || !contentRaw || !dateVal) {
+    showStatus('publishStatus', 'error', 'Lengkapi semua field dulu ya.');
+    return;
+  }
+
+  const paragraphs = contentRaw.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+  const readTime = estimateReadTime(paragraphs);
+  const date = formatDateID(dateVal);
+  const slug = slugify(title);
+
+  const btn = document.getElementById('publishBtn');
+  btn.disabled = true;
+  btn.textContent = 'Mengirim...';
+  clearStatus('publishStatus');
+
+  try {
+    const fileText = await fetchFile();
+    const { articles } = extractArticlesArray(fileText);
+    const newId = articles.length > 0 ? Math.max(...articles.map(a => a.id)) + 1 : 1;
+
+    const newArticle = { id: newId, slug, title, category, excerpt, readTime, date, author, content: paragraphs };
+    const newArticles = [newArticle, ...articles];
+
+    await commitArticles(newArticles, `Tambah artikel: ${title}`);
+    currentArticles = newArticles;
+    renderArticleList();
+
+    showStatus('publishStatus', 'success', `Berhasil publish "${title}"! Situs update dalam 1-2 menit.`);
+    document.getElementById('f_title').value = '';
+    document.getElementById('f_excerpt').value = '';
+    document.getElementById('f_content').value = '';
+    document.getElementById('f_date').value = new Date().toISOString().split('T')[0];
+  } catch (e) {
+    showStatus('publishStatus', 'error', e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Publish Artikel';
+  }
+}
+</script>
+</body>
+</html>

@@ -4,19 +4,6 @@
 
 const ARTICLES = [
   {
-    "id": 7,
-    "slug": "shofiya-suka-sains",
-    "title": "Shofiya suka sains",
-    "category": "kesehatan",
-    "excerpt": "Jadi aku suka sains karena sains",
-    "readTime": "1 menit",
-    "date": "7 Jul 2026",
-    "author": "Shofiya dan andi",
-    "content": [
-      "sainsisfnisanijadfjbdsakfsfbsdajf"
-    ]
-  },
-  {
     "id": 3,
     "slug": "apa-itu-gelombang-panas",
     "title": "Apa Itu Gelombang Panas, dan Kenapa Berbahaya?",

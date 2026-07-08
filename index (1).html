@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eduterra — Belajar Sains, Tumbuh Bersama Bumi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   EDUTERRA — Design tokens
+   Palette: pastel orange #FFC675, forest green #4A7C59,
+   ink #23331F (mossy near-black), paper #FBF3E7 (warm cream),
+   amber #E8A33D
+   Type: Space Grotesk (display), IBM Plex Sans (body),
+   IBM Plex Mono (data/labels/tags)
+   Signature: animated sprout-in-hand hero mark, and a
+   "grow-line" vine divider (draws on scroll) between sections.
+   ============================================ */
+
+:root {
+  --orange: #FFC675;
+  --orange-dim: #FFC67530;
+  --green: #4A7C59;
+  --green-dim: #4A7C591A;
+  --ink: #23331F;
+  --ink-soft: #23331F99;
+  --ink-faint: #23331F55;
+  --paper: #FBF3E7;
+  --paper-raised: #FFFFFF;
+  --amber: #E8A33D;
+  --line: #23331F18;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; line-height: 1.65; }
+.display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+.mono { font-family: 'IBM Plex Mono', monospace; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+.wrap-narrow { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+/* ---------- Nav ---------- */
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 0; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-mark { width: 36px; height: 36px; flex-shrink: 0; }
+.nav-logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.01em; color: var(--ink); }
+.nav-links { display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500; }
+.nav-links a { text-decoration: none; position: relative; }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: var(--orange); transition: width 0.2s ease; }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--green); }
+
+/* ---------- Grow-line divider (signature element) ---------- */
+.divider { width: 100%; height: 46px; display: block; margin: 8px 0; overflow: visible; }
+.divider path.vine { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke: var(--green); stroke-dasharray: 1400; stroke-dashoffset: 1400; transition: stroke-dashoffset 1.6s ease; }
+.divider.is-visible path.vine { stroke-dashoffset: 0; }
+.divider circle.leaf-node { fill: var(--orange); opacity: 0; transform-origin: center; transition: opacity 0.4s ease, transform 0.4s ease; transform: scale(0); }
+.divider.is-visible circle.leaf-node { opacity: 1; transform: scale(1); }
+.divider.is-visible circle.leaf-node:nth-of-type(1) { transition-delay: 0.5s; }
+.divider.is-visible circle.leaf-node:nth-of-type(2) { transition-delay: 0.9s; }
+.divider.is-visible circle.leaf-node:nth-of-type(3) { transition-delay: 1.3s; }
+
+/* ---------- Hero ---------- */
+.hero { padding: 56px 0 40px; position: relative; overflow: hidden; }
+.hero-inner { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 30px; align-items: center; }
+.hero-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.hero-eyebrow .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--orange); flex-shrink: 0; }
+.hero h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 50px; line-height: 1.15; letter-spacing: -0.02em; max-width: 620px; }
+.hero .rotator { color: var(--green); display: inline-block; min-width: 1px; }
+.hero p.sub { margin-top: 22px; font-size: 18px; color: var(--ink-soft); max-width: 520px; }
+.hero-cta { margin-top: 32px; display: flex; gap: 14px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: 10px; font-weight: 600; font-size: 15px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.btn-primary { background: var(--ink); color: var(--paper); position: relative; overflow: hidden; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -8px #23331F55; }
+.btn-primary .spot { position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), #FFFFFF33, transparent 60%); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+.btn-primary:hover .spot { opacity: 1; }
+.btn-primary span.label { position: relative; z-index: 1; }
+.btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+.hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 0; pointer-events: none; animation: floaty 10s ease-in-out infinite; }
+.hero-blob.b1 { width: 320px; height: 320px; background: var(--orange); opacity: 0.28; top: -70px; right: -40px; }
+.hero-blob.b2 { width: 260px; height: 260px; background: var(--green); opacity: 0.18; bottom: -90px; left: 4%; animation-delay: -4s; }
+@keyframes floaty { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(10px, -22px); } }
+
+/* ---------- Sprout illustration (hero signature) ---------- */
+.sprout-stage { position: relative; z-index: 1; display: flex; align-items: flex-end; justify-content: center; height: 320px; }
+.sprout-svg { width: 220px; height: 300px; }
+.sprout-stem { fill: none; stroke: var(--green); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 220; stroke-dashoffset: 220; animation: growStem 1.4s ease forwards 0.2s; }
+.sprout-leaf { fill: var(--orange); transform-origin: center bottom; transform: scale(0); opacity: 0; animation: unfurl 0.7s cubic-bezier(.34,1.56,.64,1) forwards; }
+.sprout-leaf.l1 { animation-delay: 1.1s; }
+.sprout-leaf.l2 { animation-delay: 1.4s; }
+.sprout-leaf.l3 { animation-delay: 1.7s; }
+.sprout-hand { fill: var(--ink); opacity: 0; animation: fadeUp 0.8s ease forwards 0.0s; }
+.sprout-svg.sway .sprout-leaf { animation: unfurl 0.7s cubic-bezier(.34,1.56,.64,1) forwards, sway 4s ease-in-out infinite 2.4s; }
+.sprout-svg.sway .sprout-leaf.l1 { animation-delay: 1.1s, 2.4s; }
+.sprout-svg.sway .sprout-leaf.l2 { animation-delay: 1.4s, 2.7s; }
+.sprout-svg.sway .sprout-leaf.l3 { animation-delay: 1.7s, 3s; }
+@keyframes growStem { to { stroke-dashoffset: 0; } }
+@keyframes unfurl { to { transform: scale(1); opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes sway { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1) rotate(4deg); } }
+
+/* ---------- Section heading ---------- */
+.section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 30px; gap: 20px; }
+.section-head h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; letter-spacing: -0.01em; }
+.section-head a.see-all { font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-decoration: none; color: var(--green); white-space: nowrap; }
+
+/* ---------- Article grid & cards ---------- */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.card { background: var(--paper-raised); border-radius: 16px; border: 1px solid var(--line); overflow: hidden; text-decoration: none; color: var(--ink); display: flex; flex-direction: column; transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; will-change: transform; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -16px #23331F33; border-color: var(--orange); }
+.card-thumb { height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.card-thumb svg { width: 56px; height: 56px; transition: transform 0.35s ease; }
+.card:hover .card-thumb svg { transform: scale(1.12) rotate(-4deg); }
+.card-body { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; width: fit-content; }
+.tag .dot { width: 6px; height: 6px; border-radius: 999px; }
+.card h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; line-height: 1.35; letter-spacing: -0.01em; }
+.card p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; flex: 1; }
+.card-meta { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-faint); display: flex; gap: 10px; padding-top: 6px; border-top: 1px solid var(--line); }
+
+/* ---------- Mission section ---------- */
+.mission { padding: 56px 0; display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; align-items: start; }
+.mission-label { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); font-weight: 600; }
+.mission h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 26px; margin-top: 10px; letter-spacing: -0.01em; }
+.mission p { font-size: 16px; color: var(--ink-soft); margin-bottom: 14px; }
+
+/* ---------- Footer ---------- */
+footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 40px; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: var(--ink-faint); }
+.footer-inner a { text-decoration: none; color: var(--green); font-weight: 600; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .sprout-stage { height: 200px; }
+}
+@media (max-width: 860px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .mission { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 38px; }
+  .nav-links { display: none; }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .sprout-stem { stroke-dashoffset: 0; }
+  .sprout-leaf { opacity: 1; transform: scale(1); }
+  .sprout-hand { opacity: 1; }
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.grid.reveal-stagger .card { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.grid.reveal-stagger.is-visible .card { opacity: 1; transform: translateY(0); }
+.grid.reveal-stagger.is-visible .card:nth-child(1) { transition-delay: 0.05s; }
+.grid.reveal-stagger.is-visible .card:nth-child(2) { transition-delay: 0.15s; }
+.grid.reveal-stagger.is-visible .card:nth-child(3) { transition-delay: 0.25s; }
+
+.rotator { transition: opacity 0.25s ease; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <svg class="nav-logo-mark" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="18" fill="var(--green)"/>
+        <path d="M18 26 C18 26 18 15 18 12" stroke="var(--paper)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+        <path d="M18 16 C14 16 12 12 12 9 C16 9 18 12 18 16Z" fill="var(--orange)"/>
+        <path d="M18 19 C22 19 24 15 24 12 C20 12 18 15 18 19Z" fill="var(--orange)"/>
+      </svg>
+      <span class="nav-logo-text">eduterra</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Beranda</a>
+      <a href="artikel.html">Artikel</a>
+    </div>
+  </nav>
+</div>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-blob b1"></div>
+    <div class="hero-blob b2"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow"><span class="dot"></span>SAINS &middot; IKLIM &middot; KESEHATAN</div>
+        <h1 class="display">
+          Eduterra bahas gimana <span class="rotator" id="rotator">panas ekstrem</span><br>
+          memengaruhi tubuh dan bumi kita.
+        </h1>
+        <p class="sub">Belajar sains, tumbuh bersama bumi. Artikel singkat, jujur, dan gampang dicerna soal hubungan perubahan iklim dengan kesehatan sehari-hari.</p>
+        <div class="hero-cta">
+          <a href="artikel.html" class="btn btn-primary"><span class="spot"></span><span class="label">Baca Artikel</span></a>
+          <a href="#tentang" class="btn btn-ghost">Kenapa Eduterra?</a>
+        </div>
+      </div>
+      <div class="sprout-stage">
+        <svg class="sprout-svg sway" viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg">
+          <path class="sprout-hand" d="M40 270 C40 240 60 225 110 225 C160 225 180 240 180 270 C180 285 160 292 110 292 C60 292 40 285 40 270 Z"/>
+          <path class="sprout-stem" d="M110 226 C110 190 110 150 110 110" />
+          <path class="sprout-leaf l1" d="M110 150 C90 150 76 130 76 108 C100 108 112 128 110 150 Z"/>
+          <path class="sprout-leaf l2" d="M110 130 C132 130 148 112 150 90 C124 90 110 108 110 130 Z"/>
+          <path class="sprout-leaf l3" d="M110 108 C96 108 86 92 86 76 C104 76 112 92 110 108 Z"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+</div>
+
+<svg class="divider" viewBox="0 0 1100 46" preserveAspectRatio="none">
+  <path class="vine" d="M0 24 C 120 24, 140 6, 260 20 S 400 40, 520 22 S 660 6, 780 22 S 940 38, 1100 22"></path>
+  <circle class="leaf-node" cx="260" cy="20" r="6"></circle>
+  <circle class="leaf-node" cx="520" cy="22" r="6"></circle>
+  <circle class="leaf-node" cx="780" cy="22" r="6"></circle>
+</svg>
+
+<div class="wrap">
+  <section style="padding: 46px 0 20px;" class="reveal">
+    <div class="section-head">
+      <h2 class="display">Artikel Terbaru</h2>
+      <a href="artikel.html" class="see-all mono">LIHAT SEMUA &rarr;</a>
+    </div>
+    <div class="grid reveal-stagger" id="latest-grid"></div>
+  </section>
+</div>
+
+<svg class="divider" viewBox="0 0 1100 46" preserveAspectRatio="none">
+  <path class="vine" d="M0 22 C 140 22, 160 40, 280 24 S 420 6, 540 24 S 700 42, 820 24 S 980 8, 1100 24"></path>
+  <circle class="leaf-node" cx="280" cy="24" r="6"></circle>
+  <circle class="leaf-node" cx="540" cy="24" r="6"></circle>
+  <circle class="leaf-node" cx="820" cy="24" r="6"></circle>
+</svg>
+
+<div class="wrap">
+  <section class="mission reveal" id="tentang">
+    <div>
+      <div class="mission-label mono">KENAPA EDUTERRA</div>
+    </div>
+    <div>
+      <h2 class="display">Sains tentang bumi itu sains tentang tubuh kita juga.</h2>
+      <p>Perubahan iklim sering dibahas sebagai isu lingkungan yang jauh, padahal dampaknya kerasa langsung ke kesehatan sehari-hari, dari udara yang kita hirup sampai penyakit yang jadi lebih sering muncul.</p>
+      <p>Eduterra ada buat nerjemahin riset dan fakta sains soal ini jadi bacaan yang gampang dicerna remaja, tanpa istilah rumit yang bikin males baca duluan. Belajar bareng, tumbuh bersama bumi.</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>&copy; 2026 Eduterra</span>
+    <a href="artikel.html">Mulai baca &rarr;</a>
+  </div>
+</footer>
+
+<script src="articles-data.js"></script>
+<script>
+  // Render 3 latest articles
+  const grid = document.getElementById('latest-grid');
+  const latest = ARTICLES.slice(0, 3);
+  grid.innerHTML = latest.map(cardHTML).join('');
+
+  // Rotating impact word in hero (signature element)
+  const words = ["panas ekstrem", "banjir", "polusi udara", "gelombang panas", "kekeringan"];
+  let wi = 0;
+  const rotEl = document.getElementById('rotator');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    setInterval(() => {
+      wi = (wi + 1) % words.length;
+      rotEl.style.opacity = 0;
+      setTimeout(() => {
+        rotEl.textContent = words[wi];
+        rotEl.style.opacity = 1;
+      }, 250);
+    }, 2600);
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal, .divider, .reveal-stagger');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  // Magnetic button + cursor spotlight
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      if (reduceMotion) return;
+      const rect = btn.getBoundingClientRect();
+      const relX = e.clientX - rect.left;
+      const relY = e.clientY - rect.top;
+      btn.style.setProperty('--mx', relX + 'px');
+      btn.style.setProperty('--my', relY + 'px');
+    });
+  });
+</script>
+
+</body>
+</html>

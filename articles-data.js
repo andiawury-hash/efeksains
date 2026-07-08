@@ -4,6 +4,19 @@
 
 const ARTICLES = [
   {
+    "id": 7,
+    "slug": "test-admin",
+    "title": "Test admin",
+    "category": "riset",
+    "excerpt": "dawsdsaw",
+    "readTime": "1 menit",
+    "date": "8 Jul 2026",
+    "author": "Andi",
+    "content": [
+      "wasdawsdsad"
+    ]
+  },
+  {
     "id": 1,
     "slug": "cuaca-panas-gampang-capek",
     "title": "Kenapa Cuaca Makin Panas Bikin Kita Gampang Capek?",

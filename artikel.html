@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Semua Artikel — Efeksains</title>
+<title>Semua Artikel — Eduterra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --coral: #E3735E;
-  --coral-dim: #E3735E22;
-  --teal: #088F8F;
-  --teal-dim: #088F8F1F;
-  --ink: #0D2B2B;
-  --ink-soft: #0D2B2B99;
-  --ink-faint: #0D2B2B55;
-  --paper: #F2F8F7;
+  --orange: #FFC675;
+  --orange-dim: #FFC67530;
+  --green: #4A7C59;
+  --green-dim: #4A7C591A;
+  --ink: #23331F;
+  --ink-soft: #23331F99;
+  --ink-faint: #23331F55;
+  --paper: #FBF3E7;
   --paper-raised: #FFFFFF;
-  --signal: #F2B705;
-  --line: #0D2B2B18;
+  --amber: #E8A33D;
+  --line: #23331F18;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -37,12 +37,13 @@ img { max-width: 100%; display: block; }
 
 .nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 0; }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo-mark { width: 34px; height: 34px; border-radius: 999px; background: var(--teal); position: relative; flex-shrink: 0; }
-.nav-logo-mark::after { content: ""; position: absolute; inset: 8px; background: var(--coral); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); border-radius: 3px; }
+.nav-logo-mark { width: 36px; height: 36px; flex-shrink: 0; }
 .nav-logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.01em; color: var(--ink); }
 .nav-links { display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500; }
-.nav-links a { text-decoration: none; }
-.nav-links a:hover { color: var(--teal); }
+.nav-links a { text-decoration: none; position: relative; }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: var(--orange); transition: width 0.2s ease; }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--green); }
 
 .page-head { padding: 40px 0 20px; }
 .page-head h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 40px; letter-spacing: -0.02em; margin-bottom: 12px; }
@@ -60,7 +61,7 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
   transition: all 0.15s ease;
 }
-.filter-btn:hover { border-color: var(--teal); }
+.filter-btn:hover { border-color: var(--green); color: var(--green); }
 .filter-btn.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; padding-bottom: 60px; }
@@ -73,11 +74,16 @@ img { max-width: 100%; display: block; }
   color: var(--ink);
   display: flex;
   flex-direction: column;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: cardIn 0.5s ease forwards;
 }
-.card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -16px #0D2B2B33; }
+@keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
+.card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -16px #23331F33; border-color: var(--orange); }
 .card-thumb { height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-.card-thumb svg { width: 56px; height: 56px; }
+.card-thumb svg { width: 56px; height: 56px; transition: transform 0.35s ease; }
+.card:hover .card-thumb svg { transform: scale(1.12) rotate(-4deg); }
 .card-body { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .tag { display: inline-flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; width: fit-content; }
 .tag .dot { width: 6px; height: 6px; border-radius: 999px; }
@@ -89,7 +95,7 @@ img { max-width: 100%; display: block; }
 
 footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20px; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: var(--ink-faint); }
-.footer-inner a { text-decoration: none; color: var(--teal); font-weight: 600; }
+.footer-inner a { text-decoration: none; color: var(--green); font-weight: 600; }
 
 @media (max-width: 860px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
@@ -99,6 +105,10 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20
 @media (max-width: 560px) {
   .grid { grid-template-columns: 1fr; }
 }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .card { opacity: 1; transform: none; }
+}
 </style>
 </head>
 <body>
@@ -106,8 +116,13 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20
 <div class="wrap">
   <nav class="nav">
     <a href="index.html" class="nav-logo">
-      <span class="nav-logo-mark"></span>
-      <span class="nav-logo-text">Efeksains</span>
+      <svg class="nav-logo-mark" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="18" fill="var(--green)"/>
+        <path d="M18 26 C18 26 18 15 18 12" stroke="var(--paper)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+        <path d="M18 16 C14 16 12 12 12 9 C16 9 18 12 18 16Z" fill="var(--orange)"/>
+        <path d="M18 19 C22 19 24 15 24 12 C20 12 18 15 18 19Z" fill="var(--orange)"/>
+      </svg>
+      <span class="nav-logo-text">eduterra</span>
     </a>
     <div class="nav-links">
       <a href="index.html">Beranda</a>
@@ -129,7 +144,7 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20
 
 <footer>
   <div class="wrap footer-inner">
-    <span>&copy; 2026 Efeksains</span>
+    <span>&copy; 2026 Eduterra</span>
     <a href="index.html">Kembali ke beranda &rarr;</a>
   </div>
 </footer>
@@ -165,7 +180,7 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20
       ? ARTICLES
       : ARTICLES.filter(a => a.category === activeCategory);
 
-    grid.innerHTML = filtered.map(cardHTML).join('');
+    grid.innerHTML = filtered.map((a, i) => cardHTML(a).replace('class="card"', `class="card" style="animation-delay:${i * 0.05}s"`)).join('');
     emptyState.style.display = filtered.length === 0 ? 'block' : 'none';
   }
 

@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Artikel — Efeksains</title>
+<title>Artikel — Eduterra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --coral: #E3735E;
-  --teal: #088F8F;
-  --ink: #0D2B2B;
-  --ink-soft: #0D2B2B99;
-  --ink-faint: #0D2B2B55;
-  --paper: #F2F8F7;
+  --orange: #FFC675;
+  --green: #4A7C59;
+  --ink: #23331F;
+  --ink-soft: #23331F99;
+  --ink-faint: #23331F55;
+  --paper: #FBF3E7;
   --paper-raised: #FFFFFF;
-  --signal: #F2B705;
-  --line: #0D2B2B18;
+  --amber: #E8A33D;
+  --line: #23331F18;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -29,22 +29,26 @@ a { color: inherit; }
 
 .nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 0; }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo-mark { width: 34px; height: 34px; border-radius: 999px; background: var(--teal); position: relative; flex-shrink: 0; }
-.nav-logo-mark::after { content: ""; position: absolute; inset: 8px; background: var(--coral); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); border-radius: 3px; }
+.nav-logo-mark { width: 36px; height: 36px; flex-shrink: 0; }
 .nav-logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.01em; color: var(--ink); }
 .nav-links { display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500; }
-.nav-links a { text-decoration: none; }
-.nav-links a:hover { color: var(--teal); }
+.nav-links a { text-decoration: none; position: relative; }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: var(--orange); transition: width 0.2s ease; }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--green); }
 
-.back-link { display: inline-flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--teal); text-decoration: none; margin-bottom: 20px; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--green); text-decoration: none; margin-bottom: 20px; }
+.back-link:hover { text-decoration: underline; }
 
-.article-head { padding: 20px 0 10px; }
+.article-head { padding: 20px 0 10px; opacity: 0; transform: translateY(14px); animation: fadeUp 0.6s ease forwards; }
 .tag { display: inline-flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; width: fit-content; }
 .tag .dot { width: 6px; height: 6px; border-radius: 999px; }
 .article-head h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 38px; line-height: 1.22; letter-spacing: -0.015em; margin: 18px 0 22px; }
 .article-meta { display: flex; gap: 18px; align-items: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink-faint); padding-bottom: 26px; border-bottom: 1px solid var(--line); margin-bottom: 30px; }
 
-.article-content { font-size: 17.5px; line-height: 1.8; color: var(--ink); }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+.article-content { font-size: 17.5px; line-height: 1.8; color: var(--ink); opacity: 0; animation: fadeUp 0.6s ease forwards 0.15s; }
 .article-content p { margin-bottom: 22px; }
 .article-content p:first-of-type::first-letter {
   font-family: 'Space Grotesk', sans-serif;
@@ -53,13 +57,18 @@ a { color: inherit; }
   float: left;
   line-height: 0.85;
   margin: 6px 8px 0 0;
-  color: var(--coral);
+  color: var(--orange);
 }
 
-.pulse { width: 100%; height: 40px; display: block; margin: 40px 0; }
-.pulse path { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.divider { width: 100%; height: 46px; display: block; margin: 40px 0; overflow: visible; }
+.divider path.vine { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: drawVine 1.4s ease forwards 0.3s; }
+.divider circle.leaf-node { fill: var(--orange); opacity: 0; transform-origin: center; animation: nodeIn 0.4s ease forwards; }
+.divider circle.leaf-node:nth-of-type(1) { animation-delay: 0.9s; }
+.divider circle.leaf-node:nth-of-type(2) { animation-delay: 1.15s; }
+@keyframes drawVine { to { stroke-dashoffset: 0; } }
+@keyframes nodeIn { to { opacity: 1; } }
 
-.related-head { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); font-weight: 600; margin-bottom: 20px; }
+.related-head { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); font-weight: 600; margin-bottom: 20px; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; padding-bottom: 60px; }
 .card {
   background: var(--paper-raised);
@@ -70,11 +79,12 @@ a { color: inherit; }
   color: var(--ink);
   display: flex;
   flex-direction: column;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
-.card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -16px #0D2B2B33; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -16px #23331F33; border-color: var(--orange); }
 .card-thumb { height: 120px; display: flex; align-items: center; justify-content: center; }
-.card-thumb svg { width: 48px; height: 48px; }
+.card-thumb svg { width: 48px; height: 48px; transition: transform 0.35s ease; }
+.card:hover .card-thumb svg { transform: scale(1.12) rotate(-4deg); }
 .card-body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .card h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; line-height: 1.35; letter-spacing: -0.01em; }
 .card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; flex: 1; }
@@ -82,11 +92,11 @@ a { color: inherit; }
 
 .not-found { padding: 80px 0; text-align: center; }
 .not-found h1 { font-family: 'Space Grotesk', sans-serif; font-size: 28px; margin-bottom: 14px; }
-.not-found a { color: var(--teal); font-weight: 600; text-decoration: none; }
+.not-found a { color: var(--green); font-weight: 600; text-decoration: none; }
 
 footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20px; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: var(--ink-faint); }
-.footer-inner a { text-decoration: none; color: var(--teal); font-weight: 600; }
+.footer-inner a { text-decoration: none; color: var(--green); font-weight: 600; }
 
 @media (max-width: 860px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
@@ -96,6 +106,12 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20
 @media (max-width: 560px) {
   .grid { grid-template-columns: 1fr; }
 }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .article-head, .article-content { opacity: 1; transform: none; }
+  .divider path.vine { stroke-dashoffset: 0; }
+  .divider circle.leaf-node { opacity: 1; }
+}
 </style>
 </head>
 <body>
@@ -103,8 +119,13 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20
 <div class="wrap">
   <nav class="nav">
     <a href="index.html" class="nav-logo">
-      <span class="nav-logo-mark"></span>
-      <span class="nav-logo-text">Efeksains</span>
+      <svg class="nav-logo-mark" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="18" fill="var(--green)"/>
+        <path d="M18 26 C18 26 18 15 18 12" stroke="var(--paper)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+        <path d="M18 16 C14 16 12 12 12 9 C16 9 18 12 18 16Z" fill="var(--orange)"/>
+        <path d="M18 19 C22 19 24 15 24 12 C20 12 18 15 18 19Z" fill="var(--orange)"/>
+      </svg>
+      <span class="nav-logo-text">eduterra</span>
     </a>
     <div class="nav-links">
       <a href="index.html">Beranda</a>
@@ -117,7 +138,7 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20
 
 <footer>
   <div class="wrap footer-inner">
-    <span>&copy; 2026 Efeksains</span>
+    <span>&copy; 2026 Eduterra</span>
     <a href="artikel.html">Baca artikel lain &rarr;</a>
   </div>
 </footer>
@@ -139,7 +160,7 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20
         </div>
       </div>`;
   } else {
-    document.title = article.title + " — Efeksains";
+    document.title = article.title + " — Eduterra";
     const color = CATEGORY_COLORS[article.category];
     const label = CATEGORY_LABELS[article.category];
 
@@ -165,8 +186,10 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 20
         </div>
       </div>
 
-      <svg class="pulse" viewBox="0 0 1100 40" preserveAspectRatio="none">
-        <path d="M0 20 L500 20 L520 5 L540 35 L560 20 L1100 20" stroke="${color}"></path>
+      <svg class="divider" viewBox="0 0 1100 46" preserveAspectRatio="none">
+        <path class="vine" d="M0 24 C 260 24, 280 8, 500 22 S 740 40, 960 22 S 1080 8, 1100 22" stroke="${color}"></path>
+        <circle class="leaf-node" cx="500" cy="22" r="6" style="fill:${color};"></circle>
+        <circle class="leaf-node" cx="960" cy="22" r="6" style="fill:${color};"></circle>
       </svg>
 
       <div class="wrap">
